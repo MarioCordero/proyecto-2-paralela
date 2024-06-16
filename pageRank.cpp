@@ -3,80 +3,33 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
-#include <omp.h>
+#include <pthread.h>
 
 PageRank::PageRank(const std::string& inputFile, const std::string& outputFile, int iterations, double dampingFactor)
-    : inputFile(inputFile), outputFile(outputFile), iterations(iterations), dampingFactor(dampingFactor) {}
+    : inputFile(inputFile), outputFile(outputFile), iterations(iterations), dampingFactor(dampingFactor) {
+    pthread_mutex_init(&ranksMutex, NULL);  // Inicializa el mutex
+}
 
 void PageRank::readInputFile() {
-    std::ifstream file(inputFile);
-    std::string line, source, destination;
-
-    while (getline(file, line)) {
-        std::istringstream stream(line);
-        stream >> source >> destination;
-        links[source].push_back(destination);
-        if (ranks.find(source) == ranks.end()) {
-            ranks[source] = 1.0;
-        }
-        if (ranks.find(destination) == ranks.end()) {
-            ranks[destination] = 1.0;
-        }
-    }
-
-    file.close();
+    // Lógica para leer el archivo de entrada y construir la estructura de enlaces
 }
 
 void PageRank::initializeRanks() {
-    int numPages = ranks.size();
-    double initialRank = 1.0 / numPages;
+    // Inicializa los PageRanks para todas las páginas
+}
 
-    for (auto& rank : ranks) {
-        rank.second = initialRank;
-    }
+void* PageRank::threadUpdateRanks(void* arg) {
+    // Lógica para que cada hilo pthread calcule los PageRanks
 }
 
 void PageRank::updateRanks() {
-    int numPages = ranks.size();
-    std::unordered_map<std::string, double> newRanks;
-    
-    #pragma omp parallel for
-    for (auto it = ranks.begin(); it != ranks.end(); ++it) {
-        std::string page = it->first;
-        double rankSum = 0.0;
-
-        for (const auto& link : links) {
-            if (std::find(link.second.begin(), link.second.end(), page) != link.second.end()) {
-                rankSum += ranks[link.first] / link.second.size();
-            }
-        }
-        
-        newRanks[page] = (1 - dampingFactor) / numPages + dampingFactor * rankSum;
-    }
-
-    ranks = newRanks;
+    // Lógica para coordinar la ejecución de hilos pthread
 }
 
 void PageRank::calculatePageRank() {
-    readInputFile();
-    initializeRanks();
-
-    for (int i = 0; i < iterations; ++i) {
-        updateRanks();
-    }
-
-    writeOutputFile();
+    // Lógica principal para calcular el PageRank utilizando pthread
 }
 
 void PageRank::writeOutputFile() {
-    std::vector<std::pair<std::string, double>> sortedRanks(ranks.begin(), ranks.end());
-    std::sort(sortedRanks.begin(), sortedRanks.end());
-
-    std::ofstream file(outputFile);
-
-    for (const auto& rank : sortedRanks) {
-        file << rank.first << " " << rank.second << std::endl;
-    }
-
-    file.close();
+    // Lógica para escribir los PageRanks calculados en un archivo de salida
 }

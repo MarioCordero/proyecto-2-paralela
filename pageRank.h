@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <pthread.h>  // Incluir la biblioteca pthread
 
 class PageRank {
 public:
@@ -19,9 +20,14 @@ private:
     double dampingFactor;
     std::unordered_map<std::string, std::vector<std::string>> links;
     std::unordered_map<std::string, double> ranks;
-    
+
+    // Variables y métodos para pthread
+    pthread_t *threads;
+    pthread_mutex_t ranksMutex;
+
     void initializeRanks();
     void updateRanks();
+    static void* threadUpdateRanks(void* arg);
 };
 
 #endif // PAGERANK_H
