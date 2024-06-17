@@ -7,7 +7,7 @@ Este proyecto consiste en la implementación del algoritmo PageRank propuesto po
 ## Miembros del equipo
 - Mario Cordero Aguilar C22306
 - Nathalie Alfaro Quesada B90221
-- Geiner
+- Geiner Montoya Barrientos C25063
 
 ## Partes elaboradas por cada miembro
 ### Mario Cordero
@@ -19,4 +19,4 @@ Este proyecto consiste en la implementación del algoritmo PageRank propuesto po
 - Ordenamiento alfabeticamente
 - Escritura de archivos
   
-### Geiner
+### Geiner Montoya
