@@ -14,6 +14,7 @@ Este proyecto consiste en la implementación del algoritmo PageRank propuesto po
 - Documentación
 - Creación de Makefile
 - Manejo de archivos
+- Implememntación del grafo
 
 ### Nathalie Alfaro
 - Ordenamiento alfabeticamente
