@@ -16,6 +16,8 @@ int main(int argc, char* argv[]) {
             // argv[4] (Aqui esta el archivo a usar)
             // argv[2] (Aqui esta la ruta a guardar el archivo)
             std::cout << "\n\nCaso alternativo\n\n";
+        }else{
+            return 1;
         }
     }
 
