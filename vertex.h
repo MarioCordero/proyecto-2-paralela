@@ -4,26 +4,45 @@
 #include <iostream>
 #include <vector>
 #include <unordered_set>
-#include <cmath>
-#include <map>
 
 class vertex {
+    private:
+
+        int id;
+        // Vertices apuntados por mi
+        int counterPointingVertex = 0;
+        // Vertices que me apuntan
+        int counterVertexPointMe = 0;
+
     public:
 
-        //ID del vertice (en este caso será un entero)
-        int id, adyacentsVertex = 0;
+        // Lista de punteros de vertices adyacentes (Para poder acceder a sus atributos facilmente)
+        std::vector<vertex*> adjacentVertex;
 
-        //Lista de adyacencia
-        std::vector<int> nodosAdyacentes;
-
-        //Constructor
+        // Constructor del vertice
         vertex(int id) : id(id) 
         {}
 
-        //Función para agregar nodos adyacentes
-        void addEdge(int v) {
-            nodosAdyacentes.push_back(v);
+        // Función para agregar nodos adyacentes
+        void addEdge(vertex oneVertex) {
+            // Estamos añadiendo al array la dirección del vertice adyacente
+            adjacentVertex.push_back(&oneVertex);
         }
+
+        // Getters
+        int getID(){
+            return id;
+        }
+        // int getPointingVertex(){
+        //     return counterPointingVertex;
+        // }
+        // int getVertexPointMe(){
+        //     return counterVertexPointMe;
+        // }
+        // std::vector* getVectorAdjacentVertex(){
+        //     return &adjacentVertex;
+        // }
+
 };
 
 #endif
