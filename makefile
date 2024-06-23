@@ -14,9 +14,6 @@ EXECUTABLE = executeme
 compile_general:
 	g++ -o $(EXECUTABLE) $(FILES)
 
-compile_general_cuda:
-	nvcc add.cu -o add_cuda
-
 clean:
 	@echo "\n"
 	rm -f $(EXECUTABLE)
