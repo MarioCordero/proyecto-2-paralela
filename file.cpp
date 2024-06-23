@@ -58,4 +58,34 @@ void File::processFile( string &filename)
         }
         std::cout << std::endl;
     }
+
+        //     // Constructor por defecto (no hace nada)
+        // FileManager() : filename("") {}
+        
+        // // Función para verificar si el archivo se puede abrir
+        // bool isFileValid(const std::string& inputFile) {
+        //     filename = inputFile;
+
+        //     // Crear un objeto ifstream
+        //     std::ifstream file(filename);
+
+        //     // Verificar si el archivo se abrió correctamente
+        //     if (!file.is_open()) {
+        //         std::cerr << "No se pudo abrir el archivo " << filename << std::endl;
+        //         return false;
+        //     }
+
+        //     // Cerrar el archivo
+        //     file.close();
+        //     return true;
+        // }
+        
+        // // Función para verificar si una ruta es válida
+        // bool isPathValid(const std::string& path) {
+        //     // Crear un objeto ifstream para verificar la ruta
+        //     std::ifstream file(path);
+        //     bool valid = file.good();
+        //     file.close();
+        //     return valid;
+        // }
 }
