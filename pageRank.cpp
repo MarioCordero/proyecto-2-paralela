@@ -1,4 +1,4 @@
-#include "PageRank.h"
+#include "pageRank.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>

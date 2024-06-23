@@ -3,19 +3,21 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
 
 int main(int argc, char* argv[]) {
 
-    // argv[2] (Aqui esta el archivo a usar)
-    printf("Argumento 1 %s \n", argv[2]);
-
-    // argv[4] (Aqui esta la ruta a guardar el archivo)
-    printf("Argumento 2 %s\n", argv[4]);
-
-    // if (argc != 5) {
-    //     std::cerr << "Usage: " << argv[0] << " <inputFile> <outputFile> <iterations> <dampingFactor>" << std::endl;
-    //     return 1;
-    // }
+    if (strcmp(argv[1], "-src") == 0 && strcmp(argv[3], "-dst") == 0) {
+        // argv[2] (Aqui esta el archivo a usar)
+        // argv[4] (Aqui esta la ruta a guardar el archivo)
+        std::cout << "\n\nCaso estandar\n\n";
+    } else {
+        if(strcmp(argv[1], "-dst") == 0 && strcmp(argv[3], "-src") == 0){
+            // argv[4] (Aqui esta el archivo a usar)
+            // argv[2] (Aqui esta la ruta a guardar el archivo)
+            std::cout << "\n\nCaso alternativo\n\n";
+        }
+    }
 
     // std::string inputFile = argv[1];
     // std::string outputFile = argv[2];
@@ -25,5 +27,5 @@ int main(int argc, char* argv[]) {
     // PageRank pageRank(inputFile, outputFile, iterations, dampingFactor);
     // pageRank.calculatePageRank();
 
-    // return 0;
+    return 0;
 }

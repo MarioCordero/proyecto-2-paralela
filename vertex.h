@@ -11,7 +11,7 @@ class vertex {
     public:
 
         //ID del vertice (en este caso será un entero)
-        int id;
+        int id, adyacentsVertex = 0;
 
         //Lista de adyacencia
         std::vector<int> nodosAdyacentes;
