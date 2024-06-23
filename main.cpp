@@ -1,5 +1,6 @@
 #include "pageRank.h"
 #include "vertex.h"
+#include "file.h"
 
 #include <iostream>
 #include <string>
