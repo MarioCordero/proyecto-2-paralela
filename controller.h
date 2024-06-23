@@ -1,32 +1,65 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 #include "file.h"
+#include <iostream>
+#include <string>
+#include <cstring>
 
 class controller{
 
     private:
         
     public:
-        // Constructor
-        controller(int argc, char* argv[]);
+        // Constructor por defecto (No hace nada)
+        controller();
+        int start(int argc, char* argv[]);
         // Destructor
         ~controller();
 };
 
-controller::controller(int argc, char* argv[]){
+// ---------------------------------------IMPLEMENTACIÓN---------------------------------------//
+// Constructor por defecto
+controller::controller(){}
 
+// Inicializador de clase controladora
+int controller::start(int argc, char* argv[]){
+
+    std::string fileName        = "";
+    std::string fileDestination = "";
+
+    if (strcmp(argv[1], "-src") == 0 && strcmp(argv[3], "-dst") == 0) {
+        // argv[2] (Aqui esta el archivo a usar)
+        fileName = argv[2];
+        // argv[4] (Aqui esta la ruta a guardar el archivo)
+        fileDestination = argv[4];
+
+    } else {
+
+        if(strcmp(argv[1], "-dst") == 0 && strcmp(argv[3], "-src") == 0){
+
+            // argv[4] (Aqui esta el archivo a usar)
+            fileName = argv[4];
+            // argv[2] (Aqui esta la ruta a guardar el archivo)
+            fileDestination = argv[4];
+
+        }else{
+
+            //Devolver codigo de error -1
+            return -1;
+
+        }
+    }
     
-    std::printf("Hola, funciono");
-    // // Nombre del archivo que queremos leer
-    // std::string filename = "prueba.txt";
-
-    // // Crear una instancia de la clase File
-    // File fileProcessor;
-
-    // // Llamar al método para procesar el archivo
-    // fileProcessor.processFile(filename);
+    
+    // Crear una instancia de la clase File
+    FileManager fileProcessor;
+    // Llamar al método para procesar el archivo
+    fileProcessor.processFile(fileName);
+    // Devolver 0, todo sale bien
+    return 0;
 }
 
+// Destructor
 controller::~controller(){}
 
 #endif
