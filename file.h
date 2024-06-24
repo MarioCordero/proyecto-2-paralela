@@ -25,7 +25,7 @@ class FileManager{
         // Constructor por defecto (no hace nada)
         FileManager() : filename("") {}
 
-        void processFile(string &filename);
+        bool processFile(const std::string& inputFile, const std::string& path);
         bool isPathValid(const std::string& path);
         bool isFileValid(const std::string& inputFile);
 
@@ -35,17 +35,22 @@ class FileManager{
 
 // ---------------------------------------IMPLEMENTACIÓN---------------------------------------//
 
-void FileManager::processFile(string &filename){
+bool FileManager::processFile(const std::string& inputFile, const std::string& path){
+
+    // Verificar que se pueda abrir
+    if (!isFileValid(inputFile)) {
+        std::cerr << "Archivo inválido" << std::endl;
+        return false;
+    }
+
+    // Verificar que la ruta se pueda usar
+    if (!isPathValid(path)) {
+        std::cerr << "Ruta destino inválida" << std::endl;
+        return false;
+    }
     
     // Crear un objeto ifstream
     std::ifstream file(filename);
-
-    // Verificar si el archivo se abrió correctamente
-    if (!file.is_open())
-    {
-        std::cerr << "\nNo se pudo abrir el archivo [" << filename << "]" << std::endl;
-        return;
-    }
 
     // Mapa para almacenar los nodos y sus asociaciones
     std::map<int, std::vector<int>> nodeAssociations;
@@ -56,24 +61,29 @@ void FileManager::processFile(string &filename){
     // Leer el archivo línea por línea
     while (std::getline(file, line)){
 
-        // Crear un stringstream a partir de la línea leída
-        std::stringstream ss(line);
+        std::cout << line << std::endl;
 
-        // Variables para el nodo y la asociación
-        int node, association;
-        char delimiter;
+        // // Crear un stringstream a partir de la línea leída
+        // std::stringstream ss(line);
 
-        // Leer el nodo y la asociación desde la línea
-        if (ss >> node >> delimiter >> association)
-        {
-            // Agregar la asociación al nodo en el mapa
-            nodeAssociations[node].push_back(association);
-        }
+        // // Variables para el nodo y la asociación
+        // int node, association;
+        // char delimiter;
+
+        // // Leer el nodo y la asociación desde la línea
+        // if (ss >> node >> delimiter >> association)
+        // {
+        //     // Agregar la asociación al nodo en el mapa
+        //     nodeAssociations[node].push_back(association);
+        // }
 
     }
 
     // Cerrar el archivo
     file.close();
+
+    // Todo se ejecutó con exito
+    return true;
 }
 
 // Función para verificar si una ruta es válida

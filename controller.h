@@ -54,20 +54,8 @@ int controller::start(int argc, char* argv[]){
     // Crear una instancia de la clase File
     FileManager fileProcessor;
 
-    // Verificar que se pueda abrir
-    if(fileProcessor.isFileValid(fileName)){
-        printf("Archivo valido");
+    if(fileProcessor.processFile(fileName,fileDestination)){
         
-        // -TODO[]
-        if(fileProcessor.isPathValid(fileDestination)){
-            printf("Ruta destino valida");
-
-            // Llamar al método para procesar el archivo
-            fileProcessor.processFile(fileName);
-            
-        }else{
-            return -1;
-        }
     }else{
         return -1;
     }
