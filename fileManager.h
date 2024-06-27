@@ -6,7 +6,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include <vertex.h>
 
@@ -16,9 +16,9 @@ class FileManager
 {
 private:
     // Nombre del archivo
-    string readFile;
+    string readFile = "prueba.txt";
     // Mapa para almacenar los nodos y sus asociaciones
-    map<int, vertex> nodeAssociations;
+    unordered_map<int, vertex> nodeAssociations;
 
 public:
     bool isPathValid(const string &path);
@@ -48,7 +48,7 @@ bool FileManager::processFile(const string &inputFile, const string &path)
     } // Fin if
 
     // Mapa para almacenar los nodos y sus asociaciones
-    map<int, vertex> nodeAssociations;
+    unordered_map<int, vertex> nodeAssociations;
     // Almacena cada línea del archivo
     string line;
 
