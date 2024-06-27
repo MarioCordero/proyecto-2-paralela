@@ -13,10 +13,10 @@ Este proyecto consiste en la implementación del algoritmo PageRank propuesto po
 
 
 ### Partes elaboradas por cada miembro
-#### Mario Cordero
+- Mario Cordero:
 
 
-#### Nathalie Alfaro
+- Nathalie Alfaro:
 
   
-#### Geiner Montoya
+- Geiner Montoya:
