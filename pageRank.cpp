@@ -1,82 +1,102 @@
 #include "pageRank.h"
+#include "vertex.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <algorithm>
-#include <omp.h>
+#include <pthread.h>
+#include <map>
 
-PageRank::PageRank(const std::string& inputFile, const std::string& outputFile, int iterations, double dampingFactor)
-    : inputFile(inputFile), outputFile(outputFile), iterations(iterations), dampingFactor(dampingFactor) {}
+// Estructura para pasar los datos a los hilos
+struct ThreadData {
+    std::map<int, Vertex*>& verticesMap; // Referencia al mapa de vértices
+    pthread_mutex_t* mutex; // Mutex para sincronización
+};
 
-void PageRank::readInputFile() {
-    std::ifstream file(inputFile);
-    std::string line, source, destination;
-
-    while (getline(file, line)) {
-        std::istringstream stream(line);
-        stream >> source >> destination;
-        links[source].push_back(destination);
-        if (ranks.find(source) == ranks.end()) {
-            ranks[source] = 1.0;
-        }
-        if (ranks.find(destination) == ranks.end()) {
-            ranks[destination] = 1.0;
-        }
-    }
-
-    file.close();
+// Constructor de la clase PageRank
+PageRank::PageRank(int iterations, const std::string& inputFile, int numThreads)
+    : iterations(iterations), inputFile(inputFile), numThreads(numThreads) {
+    pthread_mutex_init(&mutex, nullptr); // Inicializar el mutex
 }
 
-void PageRank::initializeRanks() {
-    int numPages = ranks.size();
-    double initialRank = 1.0 / numPages;
-
-    for (auto& rank : ranks) {
-        rank.second = initialRank;
-    }
+// Destructor de la clase PageRank
+PageRank::~PageRank() {
+    pthread_mutex_destroy(&mutex); // Destruir el mutex
 }
 
+// Función que será ejecutada por cada hilo para actualizar las puntuaciones de las páginas
+void* PageRank::updateRanksThread(void* arg) {
+    ThreadData* data = static_cast<ThreadData*>(arg);
+
+    // Iterar sobre los vértices asignados a este hilo
+    for (auto& pair : data->verticesMap) {
+        Vertex* vertex = pair.second;
+
+        // Bloquear mutex antes de imprimir para sincronización
+        pthread_mutex_lock(data->mutex);
+
+        // Imprimir el vértice actual
+        std::cout << "Vertex ID: " << vertex->getID() << std::endl;
+
+        // Imprimir la lista de vértices que le apuntan
+        const auto& pointingVertices = vertex->getPointingVertices();
+        std::cout << "Pointing vertices: ";
+        for (auto* pointingVertex : pointingVertices) {
+            std::cout << pointingVertex->getID() << " ";
+        }
+        std::cout << std::endl;
+
+        // Desbloquear mutex después de imprimir
+        pthread_mutex_unlock(data->mutex);
+
+        // Realizar otras operaciones en el vértice
+        // Ejemplo:
+        // vertex->updatePageRank(); // Método ficticio para actualizar PageRank
+    }
+
+    pthread_exit(nullptr);
+}
+
+// Método para actualizar las puntuaciones de las páginas utilizando múltiples hilos
 void PageRank::updateRanks() {
-    int numPages = ranks.size();
-    std::unordered_map<std::string, double> newRanks;
-    
-    #pragma omp parallel for
-    for (auto it = ranks.begin(); it != ranks.end(); ++it) {
-        std::string page = it->first;
-        double rankSum = 0.0;
+    pthread_t threads[numThreads];
+    std::vector<ThreadData> threadData(numThreads);
 
-        for (const auto& link : links) {
-            if (std::find(link.second.begin(), link.second.end(), page) != link.second.end()) {
-                rankSum += ranks[link.first] / link.second.size();
-            }
+    // Dividir los vértices en partes iguales para cada hilo
+    int verticesPerThread = verticesMap.size() / numThreads;
+    int remainingVertices = verticesMap.size() % numThreads;
+
+    auto it = verticesMap.begin();
+    for (int i = 0; i < numThreads; ++i) {
+        threadData[i].verticesMap = verticesMap;
+        threadData[i].mutex = &mutex;
+
+        for (int j = 0; j < verticesPerThread && it != verticesMap.end(); ++j) {
+            ++it;
         }
-        
-        newRanks[page] = (1 - dampingFactor) / numPages + dampingFactor * rankSum;
+
+        if (i < remainingVertices && it != verticesMap.end()) {
+            ++it;
+        }
     }
 
-    ranks = newRanks;
+    // Crear los hilos y pasarles los datos
+    for (int i = 0; i < numThreads; ++i) {
+        pthread_create(&threads[i], nullptr, &PageRank::updateRanksThread, &threadData[i]); // Crear el hilo
+    }
+
+    // Esperar a que todos los hilos terminen
+    for (int i = 0; i < numThreads; ++i) {
+        pthread_join(threads[i], nullptr);
+    }
 }
 
+// Método para calcular el PageRank
 void PageRank::calculatePageRank() {
-    readInputFile();
-    initializeRanks();
 
+    // Actualizar las puntuaciones el número especificado de iteraciones
     for (int i = 0; i < iterations; ++i) {
         updateRanks();
     }
-
-    writeOutputFile();
 }
 
-void PageRank::writeOutputFile() {
-    std::vector<std::pair<std::string, double>> sortedRanks(ranks.begin(), ranks.end());
-    std::sort(sortedRanks.begin(), sortedRanks.end());
-
-    std::ofstream file(outputFile);
-
-    for (const auto& rank : sortedRanks) {
-        file << rank.first << " " << rank.second << std::endl;
-    }
-
-    file.close();
-}

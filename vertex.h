@@ -13,6 +13,12 @@ class vertex {
         int counterPointingVertex = 0;
         // Vertices que me apuntan
         int counterVertexPointMe = 0;
+        //PageRank anterior
+        double previousPR = 0;
+        //PageRank actual
+        double currentPR = 0;
+
+
 
     public:
 
