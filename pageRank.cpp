@@ -5,6 +5,7 @@
 #include <iostream>
 #include <algorithm>
 #include <pthread.h>
+<<<<<<< HEAD
 #include <map>
 
 // Estructura para pasar los datos a los hilos
@@ -22,6 +23,24 @@ PageRank::PageRank(int iterations, const std::string& inputFile, int numThreads)
 // Destructor de la clase PageRank
 PageRank::~PageRank() {
     pthread_mutex_destroy(&mutex); // Destruir el mutex
+=======
+
+PageRank::PageRank(const std::string& inputFile, const std::string& outputFile, int iterations, double dampingFactor)
+    : inputFile(inputFile), outputFile(outputFile), iterations(iterations), dampingFactor(dampingFactor) {
+    pthread_mutex_init(&ranksMutex, NULL);  // Inicializa el mutex
+}
+
+void PageRank::readInputFile() {
+    // Lógica para leer el archivo de entrada y construir la estructura de enlaces
+}
+
+void PageRank::initializeRanks() {
+    // Inicializa los PageRanks para todas las páginas
+}
+
+void* PageRank::threadUpdateRanks(void* arg) {
+    // Lógica para que cada hilo pthread calcule los PageRanks
+>>>>>>> 561bffe98f5c2927263dfa7f510c4212327d3c03
 }
 
 // Función que será ejecutada por cada hilo para actualizar las puntuaciones de las páginas
@@ -59,6 +78,7 @@ void* PageRank::updateRanksThread(void* arg) {
 
 // Método para actualizar las puntuaciones de las páginas utilizando múltiples hilos
 void PageRank::updateRanks() {
+<<<<<<< HEAD
     pthread_t threads[numThreads];
     std::vector<ThreadData> threadData(numThreads);
 
@@ -89,10 +109,14 @@ void PageRank::updateRanks() {
     for (int i = 0; i < numThreads; ++i) {
         pthread_join(threads[i], nullptr);
     }
+=======
+    // Lógica para coordinar la ejecución de hilos pthread
+>>>>>>> 561bffe98f5c2927263dfa7f510c4212327d3c03
 }
 
 // Método para calcular el PageRank
 void PageRank::calculatePageRank() {
+<<<<<<< HEAD
 
     // Actualizar las puntuaciones el número especificado de iteraciones
     for (int i = 0; i < iterations; ++i) {
@@ -100,3 +124,11 @@ void PageRank::calculatePageRank() {
     }
 }
 
+=======
+    // Lógica principal para calcular el PageRank utilizando pthread
+}
+
+void PageRank::writeOutputFile() {
+    // Lógica para escribir los PageRanks calculados en un archivo de salida
+}
+>>>>>>> 561bffe98f5c2927263dfa7f510c4212327d3c03
