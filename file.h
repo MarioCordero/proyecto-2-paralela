@@ -18,7 +18,7 @@ class FileManager{
         std::string filename;
 
         // Mapa para almacenar los nodos y sus asociaciones
-        std::map<int, std::vector<int>> nodeAssociations;
+        std::map<int, std::vector<int>> nodeAssociations;//esto hay que cambiarlo para que reciba vertex, un map de int -> vertex
 
     public:
 
