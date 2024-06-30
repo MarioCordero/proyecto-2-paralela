@@ -16,10 +16,14 @@ Ejecutar con:
 - Geiner Montoya Barrientos C25063
 
 ### Aportes de cada miembro
-- Mario Cordero:
+- **Mario Cordero**
+  - Coordinación y gerencia del proyecto.
+  - Creación y configuración del Makefile.
+  - Implementación clase controladora.
 
 
-- Nathalie Alfaro:
+- **Nathalie Alfaro**
+  - Nada
 
-  
-- Geiner Montoya:
+- **Geiner Montoya**
+  - Nada
