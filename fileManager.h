@@ -12,23 +12,24 @@
 
 using namespace std;
 
-class FileManager
-{
-private:
-    // Nombre del archivo
-    string readFile = "prueba.txt";
-    // Mapa para almacenar los nodos y sus asociaciones
-    unordered_map<int, vertex> nodeAssociations;
+class FileManager{
 
-public:
-    bool isPathValid(const string &path);
-    bool processFile(const string &inputFile, const string &path);
+    private:
+        // Nombre del archivo
+        string readFile = "prueba.txt";
+        // Mapa para almacenar los nodos y sus asociaciones
+        unordered_map<int, vertex> nodeAssociations;
+
+    public:
+        bool isPathValid(const string &path);
+        bool processFile(const string &inputFile, const string &path);
+
 }; // Fin clase FileManager
 
 // ---------------------------------------IMPLEMENTACIÓN---------------------------------------//
 
-bool FileManager::processFile(const string &inputFile, const string &path)
-{
+bool FileManager::processFile(const string &inputFile, const string &path){
+    
     readFile = inputFile;
     // Crear un objeto ifstream para intentar abrir el archivo
     ifstream file(readFile);
