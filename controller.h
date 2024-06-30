@@ -9,9 +9,13 @@
 using namespace std;
 
 class Controller{
+    
     private:
+
     public:
+
         int start(int argc, char *argv[]);
+        
 };
 
 // ---------------------------------------IMPLEMENTACIÓN---------------------------------------//
@@ -38,24 +42,36 @@ int Controller::start(int argc, char *argv[]){
 
         } else {
 
+            // Excepcion
             throw std::invalid_argument("\n\nArgumentos invalidos.\n\n");
 
         }
     }
 
     // Verificar que ambos parámetros se hayan especificado
-    if (fileName.empty() || fileDestination.empty()) {\
+    if (fileName.empty() || fileDestination.empty()) {
+        // Excepcion
         throw std::invalid_argument("\n\nEl archivo de entrada y la ruta de salida deben especificarse.\n\n");;
     }
 
     // Crear una instancia de la clase FileManager
     FileManager fileProcessor;
 
-    if (!fileProcessor.processFile(fileName, fileDestination)){
+    // Declaracion de archivo a partir de la ruta proporcionada por parametros
+    ifstream file(fileName);
+
+    if (!file) {
+        // Excepcion
+        throw runtime_error(string("\n\nNo se pudo abrir el archivo: ") + fileName + (".\n\n"));
+    }
+
+    if (!fileProcessor.processFile(file, fileDestination)){
+        // Excepcion
         throw std::runtime_error("\n\nFallo al procesar el archivo.\n\n");
     }
 
     // -TODO[] : HACER LO QUE QUEDA
+    // Usar el getter el mapa y vamonos
 
     return 0;
 }

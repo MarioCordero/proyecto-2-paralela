@@ -10,52 +10,36 @@
 #include <vector>
 #include <vertex.h>
 
-using namespace std;
-
 class FileManager{
 
     private:
-        // Nombre del archivo
-        string readFile = "prueba.txt";
+
         // Mapa para almacenar los nodos y sus asociaciones
-        unordered_map<int, vertex> nodeAssociations;
+        std::unordered_map<int, vertex> nodeAssociations;
 
     public:
-        bool isPathValid(const string &path);
-        bool processFile(const string &inputFile, const string &path);
+
+        // Constructor
+        FileManager(){}
+        //Procesador del archivo
+        bool processFile(const std::ifstream &file, const std::string &path);
+        // Getter para toda la estructura de los nodos
+        const std::unordered_map<int, vertex>& getNodeAssociations();
 
 }; // Fin clase FileManager
 
 // ---------------------------------------IMPLEMENTACIÓN---------------------------------------//
 
-bool FileManager::processFile(const string &inputFile, const string &path){
+bool FileManager::processFile(const std::ifstream &file, const string &path){
     
-    readFile = inputFile;
-    // Crear un objeto ifstream para intentar abrir el archivo
-    ifstream file(readFile);
-
-    // Verificar si el archivo se abrió correctamente
-    if (!file.is_open())
-    {
-        cerr << "No se pudo abrir el archivo." << readFile << endl;
-        return false;
-    } // Fin if
-
-    // Verificar que la ruta se pueda usar
-    if (!isPathValid(path))
-    {
-        cerr << "Ruta destino inválida." << endl;
-        return false;
-    } // Fin if
-
     // Mapa para almacenar los nodos y sus asociaciones
-    unordered_map<int, vertex> nodeAssociations;
+    std::unordered_map<int, vertex> nodeAssociations;
     // Almacena cada línea del archivo
-    string line;
+    std::string line;
 
     // Leer el archivo línea por línea
-    while (getline(file, line))
-    {
+    while (getline(file, line)){
+
         cout << line << endl;
         stringstream ss(line);
         // Vertice y sus asociaciones
@@ -64,8 +48,7 @@ bool FileManager::processFile(const string &inputFile, const string &path){
         char delimiter;
 
         // Leyendo la línea
-        if (ss >> node >> delimiter >> association)
-        {
+        if (ss >> node >> delimiter >> association){
             /*
             Si encuentra la clave, devuelve un iterador que apunta a
             la posición de esa clave en el mapa.
@@ -89,24 +72,12 @@ bool FileManager::processFile(const string &inputFile, const string &path){
             nodeAssociations[node].addEdge(nodeAssociations[association]);
         } // Fin if
     } // Fin while
-
-    // Cerrar el archivo
-    file.close();
-    // Se ejecuta bien
     return true;
 } // Fin processFile
 
-// Verificar si una ruta es válida
-bool FileManager::isPathValid(const string &path)
-{
-    // Crear un objeto ifstream para intentar abrir el archivo
-    ifstream file(path);
-    // Si da true, significa que se pudo abrir y se puede usar
-    bool valid = file.good();
-    // Cerrar archivo
-    file.close();
-    // Da el resultado
-    return valid;
-} // Fin isPathValid
+// Implemetación del getter
+const std::unordered_map<int, vertex>& FileManager::getNodeAssociations(){
+    return nodeAssociations;
+}
 
 #endif // Fin FILEMANAGER_H
