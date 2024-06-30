@@ -15,7 +15,7 @@ class Controller{
     public:
 
         int start(int argc, char *argv[]);
-        
+
 };
 
 // ---------------------------------------IMPLEMENTACIÓN---------------------------------------//
@@ -51,7 +51,7 @@ int Controller::start(int argc, char *argv[]){
     // Verificar que ambos parámetros se hayan especificado
     if (fileName.empty() || fileDestination.empty()) {
         // Excepcion
-        throw std::invalid_argument("\n\nEl archivo de entrada y la ruta de salida deben especificarse.\n\n");;
+        throw std::invalid_argument("\n\nEl archivo de entrada y la ruta de salida deben especificarse.\n\n");
     }
 
     // Crear una instancia de la clase FileManager
