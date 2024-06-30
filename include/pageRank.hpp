@@ -19,7 +19,7 @@ public:
 private:
     int iterations;
     int numThreads;
-    std::unordered_map<int, Vertex *> verticesMap;
+    std::unordered_map<int, vertex*> verticesMap;
 };
 
 #endif // PAGERANK_H
