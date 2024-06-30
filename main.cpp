@@ -1,13 +1,24 @@
 // Bibliotecas e inclusion de encabezados
 #include "controller.h"
 
-int main(int argc, char *argv[])
-{
-    Controller program1;
-    program1.start(argc, argv);
-    // Fin del programa
+int main(int argc, char *argv[]) {
+
+    Controller controller;
+
+    try {
+
+        return controller.start(argc, argv);
+
+    } catch (const std::exception& e) {
+
+        std::cerr << "Error: " << e.what() << std::endl;
+        return -1;
+
+    }
+    
     return 0;
 }
+
 // #include "PageRank.h"
 // #include <iostream>
 
