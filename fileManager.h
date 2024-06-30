@@ -8,7 +8,7 @@
 #include <sstream>
 #include <unordered_map>
 #include <vector>
-#include <vertex.h>
+#include "vertex.h"
 
 class FileManager{
 
@@ -25,12 +25,13 @@ class FileManager{
         bool processFile(std::ifstream &file, const std::string &path);
         // Getter para toda la estructura de los nodos
         const std::unordered_map<int, vertex>& getNodeAssociations();
-
+        // Para imprimir el mapa :D
+        void printNodeAssociations();
 };
 
 // ---------------------------------------IMPLEMENTACIÓN---------------------------------------//
 
-bool FileManager::processFile(std::ifstream &file, const string &path){
+bool FileManager::processFile(std::ifstream &file, const std::string &path){
     
     // Almacena cada línea del archivo
     std::string line;
@@ -43,7 +44,7 @@ bool FileManager::processFile(std::ifstream &file, const string &path){
     // Leer el archivo línea por línea
     while (getline(file, line)){
 
-        std::cout << line << endl;
+        std::cout << line << std::endl;
         std::stringstream ss(line);
 
         // Leyendo la línea
@@ -77,6 +78,19 @@ bool FileManager::processFile(std::ifstream &file, const string &path){
 // Implemetación del getter
 const std::unordered_map<int, vertex>& FileManager::getNodeAssociations(){
     return nodeAssociations;
+}
+
+void FileManager::printNodeAssociations() {
+    for (const auto& pair : nodeAssociations) {
+        int node = pair.first;
+        const vertex& vert = pair.second;
+
+        std::cout << "Node: " << node << ", Adjacent Nodes: ";
+        for (const auto* adjVertex : vert.getAdjacentVertex()) {
+            std::cout << adjVertex->getID() << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
 #endif // Fin FILEMANAGER_H

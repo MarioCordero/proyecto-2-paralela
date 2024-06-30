@@ -6,50 +6,51 @@
 #include <vector>
 #include <unordered_set>
 
-using namespace std;
+class vertex{
 
-class vertex
-{
-private:
-    // Numero del nodo/vertice
-    int id;
-    // Vertices apuntados por mi
-    int counterPointingVertex = 0;
-    // PageRank anterior
-    double previousPR = 0;
-    // PageRank actual
-    double currentPR = 0;
+    private:
 
-public:
-    // Lista de punteros de vertices adyacentes (Para poder acceder a sus atributos facilmente)
-    vector<vertex *> adjacentVertex;
+        // Numero del nodo/vertice
+        int id;
+        // Vertices apuntados por mi
+        int counterPointingVertex = 0;
+        // PageRank anterior
+        double previousPR = 0;
+        // PageRank actual
+        double currentPR = 0;
+        // Lista de punteros de vertices adyacentes (Para poder acceder a sus atributos facilmente)
+        std::vector<vertex *> adjacentVertex;
 
-    // Constructor del vertice
-    vertex(int id) : id(id)
-    {
-    }
+    public:
+        // Constructor por defecto
+        vertex() : id(0) {}
 
-    // Función para agregar nodos adyacentes
-    void addEdge(vertex oneVertex)
-    {
-        // Estamos añadiendo al array la dirección del vertice adyacente
-        adjacentVertex.push_back(&oneVertex);
-    }
+        // Constructor del vertice
+        vertex(int id) : id(id){}
 
-    // Getters
-    int getID()
-    {
-        return id;
-    }
-    // int getPointingVertex(){
-    //     return counterPointingVertex;
-    // }
-    // int getVertexPointMe(){
-    //     return counterVertexPointMe;
-    // }
-    // vector* getVectorAdjacentVertex(){
-    //     return &adjacentVertex;
-    // }
-}; // Fin clase Vertex
+        // Función para agregar nodos adyacentes
+        void addEdge(vertex oneVertex){
+            // Estamos añadiendo al array la dirección del vertice adyacente
+            adjacentVertex.push_back(&oneVertex);
+        }
 
-#endif // Fin VERTEX_h
+        // Getters
+        int getID() const{
+            return id;
+        }
+
+        const std::vector<vertex*>& getAdjacentVertex() const{
+            return adjacentVertex;
+        }
+        // int getPointingVertex(){
+        //     return counterPointingVertex;
+        // }
+        // int getVertexPointMe(){
+        //     return counterVertexPointMe;
+        // }
+        // vector* getVectorAdjacentVertex(){
+        //     return &adjacentVertex;
+        // }
+
+};
+#endif
