@@ -5,8 +5,8 @@
 #include <sstream>
 #include <unordered_map>
 #include <vector>
-#include "vertex.h"
-#include "fileManager.h"
+#include "../includes/vertex.h"
+#include "../includes/fileManager.h"
 
 using namespace std;
 
