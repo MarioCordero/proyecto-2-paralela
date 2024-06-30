@@ -1,7 +1,7 @@
 #ifndef PAGERANK_H
 #define PAGERANK_H
 
-#include "vertex.h"
+#include "include/vertex.hpp"
 #include <iostream>
 #include <omp.h>
 #include <vector>
