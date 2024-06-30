@@ -1,5 +1,5 @@
-#include "fileManager.h"
-#include "controller.h"
+#include "../include/fileManager.hpp"
+#include "../include/controller.hpp"
 #include <iostream>
 #include <string>
 #include <cstring>
