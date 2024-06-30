@@ -1,7 +1,7 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "include/fileManager.h"
+#include "../include/fileManager.hpp"
 #include <iostream>
 #include <string>
 #include <cstring>

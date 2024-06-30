@@ -8,7 +8,7 @@
 #include <sstream>
 #include <unordered_map>
 #include <vector>
-#include "include/vertex.hpp"
+#include "../include/vertex.hpp"
 
 class FileManager
 {

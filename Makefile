@@ -1,25 +1,38 @@
 # Verificar si ARGS está definido
 ifndef ARGS
-$(error No se proporcionaron las flags requeridas. Ejecute con make ARGS="-src "archivo a usar" -dst "ruta a guardar el resultado"")
+$(error No se proporcionaron las flags requeridas. Ejecute con make ARGS="-src 'archivo a usar' -dst 'ruta a guardar el resultado'")
 endif
 
+# Variables
+INCLUDE_DIR = include
+SRC_DIR = src
+OBJ_DIR = obj
+EXECUTABLE = executeme
+CXX = g++
+CXXFLAGS = -Wall -I$(INCLUDE_DIR) -fopenmp
+SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
+OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
+
+# Target principal
 all: compile_general execute_general clean
 
-# Variables
-INPUTFILE = prueba.txt
-FILES = main.cpp
-EXECUTABLE = executeme
+# Regla para compilar el ejecutable
+compile_general: $(EXECUTABLE)
 
-# COMPILERS INSTANCES pthread
-compile_general:
-	g++ -o $(EXECUTABLE) $(FILES)
+$(EXECUTABLE): $(OBJ_FILES)
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
+# Regla para compilar archivos .cpp a .o
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Regla para limpiar archivos compilados
 clean:
-	@echo "\n"
-	rm -f $(EXECUTABLE)
+	rm -rf $(OBJ_DIR) $(EXECUTABLE)
 
-# EXECUTERS INSTANCES
-execute_general:
-	@echo "\n"
+# Regla para ejecutar el programa
+execute_general: $(EXECUTABLE)
 	./$(EXECUTABLE) $(ARGS)
-	@echo "\n"
+
+.PHONY: all compile_general clean execute_general

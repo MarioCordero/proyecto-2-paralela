@@ -32,7 +32,7 @@ void PageRank::updateRanks()
 #pragma omp critical
         {
             std::cout << "Thread ID: " << omp_get_thread_num() << " - Vertex ID: " << vertex->getID() << std::endl;
-            const auto &pointingVertices = vertex->getPointingVertices();
+            const auto &pointingVertices = vertex->getAdjacentVertex();
             std::cout << "Pointing vertices: ";
             for (auto *pointingVertex : pointingVertices)
             {
