@@ -1,5 +1,5 @@
-#include "vertex.h"
-#include "pageRank.h"
+#include "../include/vertex.hpp"
+#include "../include/pageRank.hpp"
 #include <iostream>
 #include <omp.h>
 #include <vector>
@@ -25,7 +25,8 @@ void PageRank::updateRanks()
     for (int i = 0; i < verticesMap.size(); ++i)
     {
         auto it = std::next(verticesMap.begin(), i);
-        Vertex *vertex = it->second;
+        // REVISAR NOMBRE DE LA VARIABLE
+        vertex *vertex = it->second;
 
 // Imprimir el vértice actual y la lista de vértices que le apuntan (sección crítica)
 #pragma omp critical
