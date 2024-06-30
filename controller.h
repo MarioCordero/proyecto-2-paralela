@@ -37,23 +37,22 @@ int Controller::start(int argc, char *argv[]){
             i += 2;
 
         } else {
-            // Código de error -1
-            return -1;
+
+            throw std::invalid_argument("\n\nArgumentos invalidos.\n\n");
+
         }
     }
 
     // Verificar que ambos parámetros se hayan especificado
     if (fileName.empty() || fileDestination.empty()) {\
-        // Código de error -1
-        return -1;
+        throw std::invalid_argument("\n\nEl archivo de entrada y la ruta de salida deben especificarse.\n\n");;
     }
 
     // Crear una instancia de la clase FileManager
     FileManager fileProcessor;
 
     if (!fileProcessor.processFile(fileName, fileDestination)){
-        // Código de error -1
-        return -1;
+        throw std::runtime_error("\n\nFallo al procesar el archivo.\n\n");
     }
 
     // -TODO[] : HACER LO QUE QUEDA
