@@ -10,11 +10,11 @@
 
 using namespace std;
 
-bool FileManager::processFile(std::ifstream &file, const std::string &path)
+bool FileManager::processFile(ifstream &file, const string &path)
 {
 
     // Almacena cada línea del archivo
-    std::string line;
+    string line;
 
     // Vertice y sus asociaciones
     int node, association;
@@ -25,8 +25,8 @@ bool FileManager::processFile(std::ifstream &file, const std::string &path)
     while (getline(file, line))
     {
 
-        std::cout << line << std::endl;
-        std::stringstream ss(line);
+        cout << line << endl;
+        stringstream ss(line);
 
         // Leyendo la línea
         if (ss >> node >> delimiter >> association)
@@ -59,7 +59,7 @@ bool FileManager::processFile(std::ifstream &file, const std::string &path)
 }
 
 // Implemetación del getter
-const std::unordered_map<int, vertex> &FileManager::getNodeAssociations()
+const unordered_map<int, vertex> &FileManager::getNodeAssociations()
 {
     return nodeAssociations;
 }
@@ -71,11 +71,38 @@ void FileManager::printNodeAssociations()
         int node = pair.first;
         const vertex &vert = pair.second;
 
-        std::cout << "Node: " << node << ", Adjacent Nodes: ";
+        cout << "Node: " << node << ", Adjacent Nodes: ";
         for (const auto *adjVertex : vert.getAdjacentVertex())
         {
-            std::cout << adjVertex->getID() << " ";
+            cout << adjVertex->getID() << " ";
         }
-        std::cout << std::endl;
+        cout << endl;
     }
+}
+
+bool writeFile(const string& path, const string& content) {
+    // Crear un objeto ofstream
+    ofstream file(path);
+
+    // Verificar si el archivo se abrió correctamente
+    if (!file.is_open()) {
+        cerr << "No se pudo abrir el archivo para escribir: " << path << endl;
+        return false;
+    }
+
+    // Escribir contenido en el archivo
+    file << content;
+
+    // Verificar si hubo algún error al escribir
+    if (file.fail()) {
+        cerr << "Error al escribir en el archivo: " << path << endl;
+        file.close();
+        return false;
+    }
+
+    // Cerrar el archivo
+    file.close();
+
+    // Todo se ejecutó con éxito
+    return true;
 }

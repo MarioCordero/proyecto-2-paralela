@@ -24,8 +24,9 @@ public:
     bool processFile(std::ifstream &file, const std::string &path);
     // Getter para toda la estructura de los nodos
     const std::unordered_map<int, vertex> &getNodeAssociations();
-    // Para imprimir el mapa :D
+    // Para imprimir el mapa
     void printNodeAssociations();
+    bool writeFile(const std::string& path, const std::string& content)
 };
 
 #endif // Fin FILEMANAGER_H
