@@ -2,24 +2,20 @@
 #define PAGERANK_H
 
 #include "../include/vertex.hpp"
+#include "../include/fileManager.hpp"
 #include <iostream>
 #include <omp.h>
 #include <vector>
 #include <unordered_map>
 
-class PageRank
-{
-public:
-    PageRank(int iterations, int numThreads);
-    ~PageRank();
-
-    void updateRanks();
-    void calculatePageRank();
-
+class PageRank {
 private:
-    int iterations;
-    int numThreads;
-    std::unordered_map<int, vertex*> verticesMap;
+    FileManager& fileManager;
+
+public:
+    PageRank(FileManager& fm);
+
+    void printVertexIDs();
 };
 
 #endif // PAGERANK_H

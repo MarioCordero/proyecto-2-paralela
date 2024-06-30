@@ -5,50 +5,55 @@
 #include <vector>
 #include <unordered_map>
 
-// Constructor de la clase PageRank
-PageRank::PageRank(int iterations, int numThreads)
-    : iterations(iterations), numThreads(numThreads) {}
+// Constructor
+PageRank::PageRank(FileManager& fm) : fileManager(fm) {}
 
-// Destructor de la clase PageRank
-PageRank::~PageRank() {}
+// Método para imprimir los IDs de los vértices
+void PageRank::printVertexIDs() {
+    const auto& nodes = fileManager.getNodeAssociations();
 
-// Método para actualizar las puntuaciones de las páginas utilizando múltiples hilos con OpenMP
-void PageRank::updateRanks()
-{
-    int verticesPerThread = (verticesMap.size() + numThreads - 1) / numThreads; // División redondeada hacia arriba
-
-    // Configurar el número de hilos en OpenMP
-    omp_set_num_threads(numThreads);
-
-// Paralelizar el bucle usando OpenMP
-#pragma omp parallel for
-    for (int i = 0; i < verticesMap.size(); ++i)
-    {
-        auto it = std::next(verticesMap.begin(), i);
-        // REVISAR NOMBRE DE LA VARIABLE
-        vertex *vertex = it->second;
-
-// Imprimir el vértice actual y la lista de vértices que le apuntan (sección crítica)
-#pragma omp critical
-        {
-            std::cout << "Thread ID: " << omp_get_thread_num() << " - Vertex ID: " << vertex->getID() << std::endl;
-            const auto &pointingVertices = vertex->getAdjacentVertex();
-            std::cout << "Pointing vertices: ";
-            for (auto *pointingVertex : pointingVertices)
-            {
-                std::cout << pointingVertex->getID() << " ";
-            }
-            std::cout << std::endl;
-        }
+    // Obtener todos los IDs de los nodos
+    std::vector<int> nodeIDs;
+    nodeIDs.reserve(nodes.size());
+    for (const auto& pair : nodes) {
+        nodeIDs.push_back(pair.first);
     }
-}
 
-// Método para calcular el PageRank
-void PageRank::calculatePageRank()
-{
-
-    for (int i = 0; i < iterations; ++i)
+    // Iterar sobre los nodos en paralelo
+    #pragma omp parallel
     {
-        updateRanks();
+        double aux = 0;
+        double prevPR = 0;
+        double currPR = 0;
+        int iterationCounter = 0;
+        int threadID = omp_get_thread_num();
+        #pragma omp for schedule(dynamic)
+        // Aquí va un while que hace la convergencia
+        // Poner un for para estudiar resultados
+        for (size_t i = 0; i < nodeIDs.size(); ++i) {
+            int nodeID = nodeIDs[i];
+            // Obtener el nodo actual
+            const auto& currentNode = nodes.at(nodeID);
+            // if (iterationCounter == 0) {
+            //     currentNode.previousPR = 1.0 / nodes.size();
+            // }
+            // Imprimir los vértices adyacentes de manera segura
+            #pragma omp critical
+            {
+                std::cout << "Thread ID: " << threadID << ", Vertex ID: " << nodeID << std::endl;
+
+                const auto& adjacentVertices = currentNode.getAdjacentVertex();
+                std::cout << "    Adjacent Vertices: ";
+                for (const auto* adjVertex : adjacentVertices) {
+                    //prevPR = currentNode.previousPR;
+                    // Aquí se accede a previousPR y nodos que apunta
+                    // Fórmula: sumatoria = previousPR / nodos que apunta
+                    // para hacer una sumatoria
+
+                    // std::cout << adjVertex->getID() << " ";
+                }
+                std::cout << std::endl;
+            }
+        }
     }
 }

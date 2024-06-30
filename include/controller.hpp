@@ -2,6 +2,7 @@
 #define CONTROLLER_H
 
 #include "../include/fileManager.hpp"
+#include "../include/pageRank.hpp"
 #include <iostream>
 #include <string>
 #include <cstring>

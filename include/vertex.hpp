@@ -29,9 +29,9 @@ public:
     vertex(int id) : id(id) {}
 
     // Función para agregar nodos adyacentes
-    void addEdge(vertex oneVertex)
+    void addEdge(vertex& oneVertex)
     {
-        // Estamos añadiendo al array la dirección del vertice adyacente
+        // Estamos añadiendo al array el vertice adyacente
         adjacentVertex.push_back(&oneVertex);
     }
 

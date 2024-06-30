@@ -65,6 +65,9 @@ int Controller::start(int argc, char *argv[])
 
     // -TODO[] : HACER LO QUE QUEDA
     // Usar el getter el mapa y vamonos
+    fileProcessor.printNodeAssociations();
+    PageRank pageRank(fileProcessor);
+    pageRank.printVertexIDs();
 
     return 0;
 } // Fin start
