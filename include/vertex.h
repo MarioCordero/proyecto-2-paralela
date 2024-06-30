@@ -45,14 +45,5 @@ public:
     {
         return adjacentVertex;
     }
-    // int getPointingVertex(){
-    //     return counterPointingVertex;
-    // }
-    // int getVertexPointMe(){
-    //     return counterVertexPointMe;
-    // }
-    // vector* getVectorAdjacentVertex(){
-    //     return &adjacentVertex;
-    // }
 };
 #endif
