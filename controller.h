@@ -51,15 +51,12 @@ int Controller::start(int argc, char *argv[]){
     // Crear una instancia de la clase FileManager
     FileManager fileProcessor;
 
-    if (fileProcessor.processFile(fileName, fileDestination)){
-
-        // -TODO[] : HACER LO QUE QUEDA
-
-    }else{
-
+    if (!fileProcessor.processFile(fileName, fileDestination)){
+        // Código de error -1
         return -1;
-
     }
+
+    // -TODO[] : HACER LO QUE QUEDA
 
     return 0;
 }
