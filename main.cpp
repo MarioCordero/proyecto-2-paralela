@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "controller.h"
 
 int main(int argc, char* argv[]){
@@ -8,29 +7,28 @@ int main(int argc, char* argv[]){
 
     return 0;
 }
-=======
-#include "PageRank.h"
-#include <iostream>
 
-int main(int argc, char* argv[]) {
-    // Verifica si se proporcionaron los argumentos esperados
-    if (argc != 5) {
-        std::cerr << "Usage: " << argv[0] << " <inputFile> <outputFile> <iterations> <dampingFactor>" << std::endl;
-        return 1;  // Devuelve 1 para indicar error en la línea de comandos
-    }
+// #include "PageRank.h"
+// #include <iostream>
 
-    // Recupera los argumentos de la línea de comandos
-    std::string inputFile = argv[1];
-    std::string outputFile = argv[2];
-    int iterations = std::stoi(argv[3]);
-    double dampingFactor = std::stod(argv[4]);
+// int main(int argc, char* argv[]) {
+//     // Verifica si se proporcionaron los argumentos esperados
+//     if (argc != 5) {
+//         std::cerr << "Usage: " << argv[0] << " <inputFile> <outputFile> <iterations> <dampingFactor>" << std::endl;
+//         return 1;  // Devuelve 1 para indicar error en la línea de comandos
+//     }
 
-    // Crear instancia de PageRank con los parámetros proporcionados
-    PageRank pageRank(inputFile, outputFile, iterations, dampingFactor);
+//     // Recupera los argumentos de la línea de comandos
+//     std::string inputFile = argv[1];
+//     std::string outputFile = argv[2];
+//     int iterations = std::stoi(argv[3]);
+//     double dampingFactor = std::stod(argv[4]);
 
-    // Calcular el PageRank
-    pageRank.calculatePageRank();
+//     // Crear instancia de PageRank con los parámetros proporcionados
+//     PageRank pageRank(inputFile, outputFile, iterations, dampingFactor);
 
-    return 0;  // Salida exitosa
-}
->>>>>>> 561bffe98f5c2927263dfa7f510c4212327d3c03
+//     // Calcular el PageRank
+//     pageRank.calculatePageRank();
+
+//     return 0;  // Salida exitosa
+// }
