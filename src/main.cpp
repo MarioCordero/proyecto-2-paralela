@@ -1,5 +1,5 @@
 // Bibliotecas e inclusion de encabezados
-#include "controller.h"
+#include "../include/controller.h"
 
 int main(int argc, char *argv[])
 {
