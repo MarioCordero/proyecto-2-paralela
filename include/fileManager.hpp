@@ -8,7 +8,7 @@
 #include <sstream>
 #include <unordered_map>
 #include <vector>
-#include "vertex.h"
+#include "include/vertex.hpp"
 
 class FileManager
 {
@@ -26,7 +26,7 @@ public:
     const std::unordered_map<int, vertex> &getNodeAssociations();
     // Para imprimir el mapa
     void printNodeAssociations();
-    bool writeFile(const std::string& path, const std::string& content)
+    bool writeFile(const std::string& path, const std::string& content);
 };
 
 #endif // Fin FILEMANAGER_H
