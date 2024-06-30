@@ -1,6 +1,3 @@
-#ifndef FILEMANAGER_H
-#define FILEMANAGER_H
-
 // Bibliotecas e inclusion de encabezados
 #include <iostream>
 #include <fstream>
@@ -9,30 +6,13 @@
 #include <unordered_map>
 #include <vector>
 #include "vertex.h"
+#include "fileManager.h"
 
-class FileManager{
+using namespace std;
 
-    private:
+bool FileManager::processFile(std::ifstream &file, const std::string &path)
+{
 
-        // Mapa para almacenar los nodos y sus asociaciones
-        std::unordered_map<int, vertex> nodeAssociations;
-
-    public:
-
-        // Constructor
-        FileManager(){}
-        //Procesador del archivo
-        bool processFile(std::ifstream &file, const std::string &path);
-        // Getter para toda la estructura de los nodos
-        const std::unordered_map<int, vertex>& getNodeAssociations();
-        // Para imprimir el mapa :D
-        void printNodeAssociations();
-};
-
-// ---------------------------------------IMPLEMENTACIÓN---------------------------------------//
-
-bool FileManager::processFile(std::ifstream &file, const std::string &path){
-    
     // Almacena cada línea del archivo
     std::string line;
 
@@ -42,13 +22,15 @@ bool FileManager::processFile(std::ifstream &file, const std::string &path){
     char delimiter;
 
     // Leer el archivo línea por línea
-    while (getline(file, line)){
+    while (getline(file, line))
+    {
 
         std::cout << line << std::endl;
         std::stringstream ss(line);
 
         // Leyendo la línea
-        if (ss >> node >> delimiter >> association){
+        if (ss >> node >> delimiter >> association)
+        {
             /*
             Si encuentra la clave, devuelve un iterador que apunta a
             la posición de esa clave en el mapa.
@@ -56,19 +38,20 @@ bool FileManager::processFile(std::ifstream &file, const std::string &path){
             Si no encuentra la clave, devuelve end(), que es un
             iterador especial que indica el final del mapa.
             */
-            if (nodeAssociations.find(node) == nodeAssociations.end()){
+            if (nodeAssociations.find(node) == nodeAssociations.end())
+            {
                 // Nodo no existe en el mapa, entonces se agrega al mapa
                 nodeAssociations[node] = vertex(node);
             }
 
-            if (nodeAssociations.find(association) == nodeAssociations.end()){
+            if (nodeAssociations.find(association) == nodeAssociations.end())
+            {
                 // Asociacion no existe en el mapa, entonces se agrega al mapa
                 nodeAssociations[association] = vertex(association);
             }
 
             // Agregar la asociación al nodo en el mapa
             nodeAssociations[node].addEdge(nodeAssociations[association]);
-
         }
     }
     // Se hizo todo sin errores
@@ -76,21 +59,23 @@ bool FileManager::processFile(std::ifstream &file, const std::string &path){
 }
 
 // Implemetación del getter
-const std::unordered_map<int, vertex>& FileManager::getNodeAssociations(){
+const std::unordered_map<int, vertex> &FileManager::getNodeAssociations()
+{
     return nodeAssociations;
 }
 
-void FileManager::printNodeAssociations() {
-    for (const auto& pair : nodeAssociations) {
+void FileManager::printNodeAssociations()
+{
+    for (const auto &pair : nodeAssociations)
+    {
         int node = pair.first;
-        const vertex& vert = pair.second;
+        const vertex &vert = pair.second;
 
         std::cout << "Node: " << node << ", Adjacent Nodes: ";
-        for (const auto* adjVertex : vert.getAdjacentVertex()) {
+        for (const auto *adjVertex : vert.getAdjacentVertex())
+        {
             std::cout << adjVertex->getID() << " ";
         }
         std::cout << std::endl;
     }
 }
-
-#endif // Fin FILEMANAGER_H
