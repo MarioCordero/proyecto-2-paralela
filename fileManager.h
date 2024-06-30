@@ -22,30 +22,29 @@ class FileManager{
         // Constructor
         FileManager(){}
         //Procesador del archivo
-        bool processFile(const std::ifstream &file, const std::string &path);
+        bool processFile(std::ifstream &file, const std::string &path);
         // Getter para toda la estructura de los nodos
         const std::unordered_map<int, vertex>& getNodeAssociations();
 
-}; // Fin clase FileManager
+};
 
 // ---------------------------------------IMPLEMENTACIÓN---------------------------------------//
 
-bool FileManager::processFile(const std::ifstream &file, const string &path){
+bool FileManager::processFile(std::ifstream &file, const string &path){
     
-    // Mapa para almacenar los nodos y sus asociaciones
-    std::unordered_map<int, vertex> nodeAssociations;
     // Almacena cada línea del archivo
     std::string line;
+
+    // Vertice y sus asociaciones
+    int node, association;
+    // Los : que delimita la entrada por linea
+    char delimiter;
 
     // Leer el archivo línea por línea
     while (getline(file, line)){
 
-        cout << line << endl;
-        stringstream ss(line);
-        // Vertice y sus asociaciones
-        int node, association;
-        // Los : que delimita la entrada por linea
-        char delimiter;
+        std::cout << line << endl;
+        std::stringstream ss(line);
 
         // Leyendo la línea
         if (ss >> node >> delimiter >> association){
@@ -56,24 +55,24 @@ bool FileManager::processFile(const std::ifstream &file, const string &path){
             Si no encuentra la clave, devuelve end(), que es un
             iterador especial que indica el final del mapa.
             */
-            if (nodeAssociations.find(node) == nodeAssociations.end())
-            {
+            if (nodeAssociations.find(node) == nodeAssociations.end()){
                 // Nodo no existe en el mapa, entonces se agrega al mapa
                 nodeAssociations[node] = vertex(node);
-            } // Fin if
+            }
 
-            if (nodeAssociations.find(association) == nodeAssociations.end())
-            {
+            if (nodeAssociations.find(association) == nodeAssociations.end()){
                 // Asociacion no existe en el mapa, entonces se agrega al mapa
                 nodeAssociations[association] = vertex(association);
-            } // Fin if
+            }
 
             // Agregar la asociación al nodo en el mapa
             nodeAssociations[node].addEdge(nodeAssociations[association]);
-        } // Fin if
-    } // Fin while
+
+        }
+    }
+    // Se hizo todo sin errores
     return true;
-} // Fin processFile
+}
 
 // Implemetación del getter
 const std::unordered_map<int, vertex>& FileManager::getNodeAssociations(){
