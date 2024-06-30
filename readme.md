@@ -4,9 +4,10 @@ Este proyecto consiste en la implementación del algoritmo PageRank propuesto po
 
 ## Como usar
 BLABLABLA
+
 Ejecutar con:
 ```bash
-    make ARGS="calcularPImsg01.c [#puntos] [#hilos]"
+    make ARGS="-src [Archivo] -dst [Destino]"
 ```
 
 ## Miembros del equipo
