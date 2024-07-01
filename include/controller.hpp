@@ -7,10 +7,10 @@
 #include <string>
 #include <cstring>
 
-using namespace std;
-
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
+
+using namespace std;
 
 class Controller
 {

@@ -27,10 +27,10 @@ public:
     // Procesador del archivo
     bool processFile(ifstream &file, const string &path);
     // Getter para toda la estructura de los nodos
-    const unordered_map<int, vertex> &getNodeAssociations();
+    unordered_map<int, vertex> &getNodeAssociations();
     // Para imprimir el mapa
     void printNodeAssociations();
-    // Escribir el archivo
+    // Escribir un archivo
     bool writeFile(const string &path, const string &content);
 }; // Fin clase FileManager
 

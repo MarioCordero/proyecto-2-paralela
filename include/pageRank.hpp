@@ -1,26 +1,22 @@
-// Inclusion de encabezados
+#ifndef PAGERANK_H
+#define PAGERANK_H
+
 #include "../include/vertex.hpp"
 #include "../include/fileManager.hpp"
-
-// Bibliotecas
 #include <iostream>
 #include <omp.h>
 #include <vector>
 #include <unordered_map>
 
-using namespace std;
-
-#ifndef PAGERANK_H
-#define PAGERANK_H
-
-class PageRank
-{
+class PageRank {
 private:
-    FileManager &fileManager;
+    FileManager& fileManager;
 
 public:
-    PageRank(FileManager &fm);
-    void printVertexIDs();
-}; // Fin clase PageRank
+    PageRank(FileManager& fm);
+
+    void calculatePR();
+    void printPageRanks();
+};
 
 #endif // PAGERANK_H
