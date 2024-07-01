@@ -1,15 +1,14 @@
+#ifndef VERTEX_h
+#define VERTEX_h
+
 // Bibliotecas
 #include <iostream>
 #include <vector>
 #include <unordered_set>
 
-using namespace std;
-
-#ifndef VERTEX_h
-#define VERTEX_h
-
 class vertex
 {
+
 private:
     // Numero del nodo/vertice
     int id;
@@ -20,7 +19,7 @@ private:
     // PageRank actual
     double currentPR = 0;
     // Lista de punteros de vertices adyacentes (Para poder acceder a sus atributos facilmente)
-    vector<vertex *> adjacentVertex;
+    std::vector<vertex *> adjacentVertex;
 
 public:
     // Constructor por defecto
@@ -30,19 +29,19 @@ public:
     vertex(int id) : id(id) {}
 
     // Función para agregar nodos adyacentes
-    void addEdge(vertex &oneVertex)
+    void addEdge(vertex& oneVertex)
     {
         // Estamos añadiendo al array el vertice adyacente
         adjacentVertex.push_back(&oneVertex);
-    } // Fin addEdge
+    }
 
     // Getters
     int getID() const
     {
         return id;
-    } // Fin getID
+    }
 
-    const vector<vertex *> &getAdjacentVertex() const
+    const std::vector<vertex *> &getAdjacentVertex() const
     {
         return adjacentVertex;
     }
