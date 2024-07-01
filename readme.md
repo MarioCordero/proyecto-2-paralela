@@ -23,11 +23,14 @@ Ejecutar con:
 
 
 - **Nathalie Alfaro**
-  - Nada
+  - Implementación de la clase FileManager.
+  - Implementación de archivo prueba.txt
+  - Documentacion interna.
+  - Darle formato al codigo.
 
 - **Geiner Montoya**
-  - Explicación de algoritmo
-  - Corrección general de compatibilidades
-  - Implementación de paralelismo
-  - Implementación de formula de pageRank
-  - Implementación clase pageRank
+  - Explicación de algoritmo.
+  - Corrección general de compatibilidades.
+  - Implementación de paralelismo.
+  - Implementación de formula de pageRank.
+  - Implementación clase pageRank.
