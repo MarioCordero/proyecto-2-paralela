@@ -45,5 +45,26 @@ public:
     {
         return adjacentVertex;
     }
+
+    double getPreviousPR() const {
+        return previousPR;
+    }
+
+    double getCurrentPR() const {
+        return currentPR;
+    }
+    
+    size_t getAdjacentVertexCount() const {
+        return adjacentVertex.size();
+    }
+
+    void setPreviousPR(double pr) {
+        previousPR = pr;
+    }
+
+    void setCurrentPR(double pr) {
+        currentPR = pr;
+    }
+
 };
 #endif

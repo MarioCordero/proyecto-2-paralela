@@ -59,7 +59,7 @@ bool FileManager::processFile(ifstream &file, const string &path)
 }
 
 // Implemetación del getter
-const unordered_map<int, vertex> &FileManager::getNodeAssociations()
+ std :: unordered_map<int, vertex>& FileManager::getNodeAssociations()
 {
     return nodeAssociations;
 }

@@ -4,14 +4,15 @@
 #include <omp.h>
 #include <vector>
 #include <unordered_map>
+#include <cmath> // Para usar std::abs
 
 // Constructor
 PageRank::PageRank(FileManager& fm) : fileManager(fm) {}
 
 // Método para imprimir los IDs de los vértices
-void PageRank::printVertexIDs() {
-    const auto& nodes = fileManager.getNodeAssociations();
-
+void PageRank::calculatePR() {
+    auto& nodes = fileManager.getNodeAssociations();
+    
     // Obtener todos los IDs de los nodos
     std::vector<int> nodeIDs;
     nodeIDs.reserve(nodes.size());
@@ -19,41 +20,72 @@ void PageRank::printVertexIDs() {
         nodeIDs.push_back(pair.first);
     }
 
-    // Iterar sobre los nodos en paralelo
-    #pragma omp parallel
-    {
-        double aux = 0;
-        double prevPR = 0;
-        double currPR = 0;
-        int iterationCounter = 0;
-        int threadID = omp_get_thread_num();
-        #pragma omp for schedule(dynamic)
-        // Aquí va un while que hace la convergencia
-        // Poner un for para estudiar resultados
+    // Número máximo de iteraciones para convergencia
+    const int maxIterations = 1000; // Limite de seguridad
+    const double dampingFactor = 0.85;
+    const double initialPageRank = 1.0 / nodes.size();
+    const double threshold = 1.0e-5; // Umbral de convergencia
+
+    // Inicializar PageRank
+    #pragma omp parallel for
+    for (size_t i = 0; i < nodeIDs.size(); ++i) {
+        int nodeID = nodeIDs[i];
+        nodes[nodeID].setPreviousPR(initialPageRank);
+        nodes[nodeID].setCurrentPR(initialPageRank);
+    }
+
+    // Iterar hasta que converja
+    bool converged = false;
+    int iteration = 0;
+    while (!converged && iteration < maxIterations) {
+        ++iteration;
+        converged = true; // Suponemos convergencia hasta que se demuestre lo contrario
+
+        #pragma omp parallel for schedule(dynamic)
         for (size_t i = 0; i < nodeIDs.size(); ++i) {
             int nodeID = nodeIDs[i];
-            // Obtener el nodo actual
-            const auto& currentNode = nodes.at(nodeID);
-            // if (iterationCounter == 0) {
-            //     currentNode.previousPR = 1.0 / nodes.size();
-            // }
-            // Imprimir los vértices adyacentes de manera segura
-            #pragma omp critical
-            {
-                std::cout << "Thread ID: " << threadID << ", Vertex ID: " << nodeID << std::endl;
+            auto& currentNode = nodes.at(nodeID);
 
-                const auto& adjacentVertices = currentNode.getAdjacentVertex();
-                std::cout << "    Adjacent Vertices: ";
-                for (const auto* adjVertex : adjacentVertices) {
-                    //prevPR = currentNode.previousPR;
-                    // Aquí se accede a previousPR y nodos que apunta
-                    // Fórmula: sumatoria = previousPR / nodos que apunta
-                    // para hacer una sumatoria
+            double sum = 0.0;
 
-                    // std::cout << adjVertex->getID() << " ";
-                }
-                std::cout << std::endl;
+            // Calcular la sumatoria de PageRanks de los nodos que apuntan a currentNode
+            const auto& adjacentVertices = currentNode.getAdjacentVertex();
+            for (const auto* adjVertex : adjacentVertices) {
+                double prevPR = adjVertex->getPreviousPR();
+                int outDegree = adjVertex->getAdjacentVertexCount();
+                sum += (outDegree > 0) ? (prevPR / outDegree) : 0.0;
             }
+
+            // Actualizar el PageRank actual usando el damping factor
+            double newPR = ((1.0 - dampingFactor) / nodes.size()) + (dampingFactor * sum);
+
+            // Verificar convergencia
+            if (std::abs(currentNode.getCurrentPR() - newPR) > threshold) {
+                converged = false; // Si hay una diferencia mayor que el umbral, no ha convergido
+            }
+
+            currentNode.setCurrentPR(newPR);
+        }
+
+        // Actualizar previousPR para la siguiente iteración
+        #pragma omp parallel for
+        for (size_t i = 0; i < nodeIDs.size(); ++i) {
+            int nodeID = nodeIDs[i];
+            nodes[nodeID].setPreviousPR(nodes[nodeID].getCurrentPR());
         }
     }
+
+    std::cout << "PageRank converged after " << iteration << " iterations." << std::endl;
 }
+
+// Método auxiliar para imprimir el valor del PageRank de cada nodo
+void PageRank::printPageRanks() {
+    auto& nodes = fileManager.getNodeAssociations();
+
+    for (const auto& pair : nodes) {
+        int nodeID = pair.first;
+        const auto& currentNode = pair.second;
+        std::cout << "Vertex ID: " << nodeID << ", PageRank: " << currentNode.getCurrentPR() << std::endl;
+    }
+}
+

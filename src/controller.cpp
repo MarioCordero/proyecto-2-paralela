@@ -65,9 +65,9 @@ int Controller::start(int argc, char *argv[])
 
     // -TODO[] : HACER LO QUE QUEDA
     // Usar el getter el mapa y vamonos
-    fileProcessor.printNodeAssociations();
     PageRank pageRank(fileProcessor);
-    pageRank.printVertexIDs();
+    pageRank.calculatePR();
+    pageRank.printPageRanks(); // Imprimir los PageRanks después de calcularlos
 
     return 0;
 } // Fin start

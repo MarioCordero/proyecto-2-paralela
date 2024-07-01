@@ -15,7 +15,8 @@ private:
 public:
     PageRank(FileManager& fm);
 
-    void printVertexIDs();
+    void calculatePR();
+    void printPageRanks();
 };
 
 #endif // PAGERANK_H

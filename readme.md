@@ -26,4 +26,8 @@ Ejecutar con:
   - Nada
 
 - **Geiner Montoya**
-  - Nada
+  - Explicación de algoritmo
+  - Corrección general de compatibilidades
+  - Implementación de paralelismo
+  - Implementación de formula de pageRank
+  - Implementación clase pageRank
