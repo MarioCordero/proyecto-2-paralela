@@ -1,4 +1,4 @@
-# Algoritmo PageRank, implementado en C++
+ # Algoritmo PageRank, implementado en C++
 ## Descripción
 Este proyecto consiste en la implementación del algoritmo PageRank propuesto por Larry Page y Sergey Brin para clasificar la importancia de las páginas web. El algoritmo define la importancia de una página web en función del número de enlaces entrantes que recibe.
 
