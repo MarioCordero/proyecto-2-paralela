@@ -1,5 +1,7 @@
-// Bibliotecas e inclusion de encabezados
+// Inclusion de encabezados
 #include "../include/controller.hpp"
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -9,9 +11,9 @@ int main(int argc, char *argv[])
     {
         return controller.start(argc, argv);
     }
-    catch (const std::exception &e)
+    catch (const exception &e)
     {
-        std::cerr << "Error: " << e.what() << std::endl;
+        cerr << "Error: " << e.what() << endl;
         return -1;
     } // Fin try-catch
 
@@ -25,15 +27,15 @@ int main(int argc, char *argv[])
 // int main(int argc, char* argv[]) {
 //     // Verifica si se proporcionaron los argumentos esperados
 //     if (argc != 5) {
-//         std::cerr << "Usage: " << argv[0] << " <inputFile> <outputFile> <iterations> <dampingFactor>" << std::endl;
+//         cerr << "Usage: " << argv[0] << " <inputFile> <outputFile> <iterations> <dampingFactor>" << endl;
 //         return 1;  // Devuelve 1 para indicar error en la línea de comandos
 //     }
 
 //     // Recupera los argumentos de la línea de comandos
-//     std::string inputFile = argv[1];
-//     std::string outputFile = argv[2];
-//     int iterations = std::stoi(argv[3]);
-//     double dampingFactor = std::stod(argv[4]);
+//     string inputFile = argv[1];
+//     string outputFile = argv[2];
+//     int iterations = stoi(argv[3]);
+//     double dampingFactor = stod(argv[4]);
 
 //     // Crear instancia de PageRank con los parámetros proporcionados
 //     PageRank pageRank(inputFile, outputFile, iterations, dampingFactor);

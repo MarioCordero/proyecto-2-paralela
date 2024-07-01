@@ -1,24 +1,26 @@
+// Inclusion de encabezados
 #include "../include/vertex.hpp"
 #include "../include/pageRank.hpp"
+
+// Bibliotecas
 #include <iostream>
 #include <omp.h>
 #include <vector>
 #include <unordered_map>
 #include <cmath> // Para usar std::abs
 
+using namespace std;
+
 // Constructor
-PageRank::PageRank(FileManager& fm) : fileManager(fm) {}
+PageRank::PageRank(FileManager &fm) : fileManager(fm) {}
 
 // Método para imprimir los IDs de los vértices
 void PageRank::calculatePR() {
     auto& nodes = fileManager.getNodeAssociations();
     
     // Obtener todos los IDs de los nodos
-    std::vector<int> nodeIDs;
+    vector<int> nodeIDs;
     nodeIDs.reserve(nodes.size());
-    for (const auto& pair : nodes) {
-        nodeIDs.push_back(pair.first);
-    }
 
     // Número máximo de iteraciones para convergencia
     const int maxIterations = 1000; // Limite de seguridad
