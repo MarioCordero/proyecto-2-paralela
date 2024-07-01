@@ -6,6 +6,10 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <map>
+#include <fstream>
+#include <vector>
+#include <algorithm>
 
 #ifndef CONTROLLER_H
 #define CONTROLLER_H

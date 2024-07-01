@@ -6,6 +6,10 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <map>
+#include <fstream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -62,6 +66,7 @@ int Controller::start(int argc, char *argv[])
 
     // -TODO[] : HACER LO QUE QUEDA
     // Usar el getter el mapa y vamonos
+
     PageRank pageRank(fileProcessor);
     pageRank.calculatePR();
     // Imprimir los PageRanks después de calcularlos

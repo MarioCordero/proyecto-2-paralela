@@ -78,7 +78,7 @@ void FileManager::printNodeAssociations()
     } // Fin for
 } // Fin printNodeAssociations
 
-bool writeFile(const string &path, const string &content)
+bool writeFile(const string &path)
 {
     // Crear un objeto ofstream
     ofstream file(path);
@@ -90,8 +90,7 @@ bool writeFile(const string &path, const string &content)
         return false;
     } // Fin if
 
-    // Escribir contenido en el archivo
-    file << content;
+    //file << pageRanke.calculatePR();
 
     // Verificar si hubo algún error al escribir
     if (file.fail())

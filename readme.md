@@ -8,6 +8,7 @@ Este proyecto consiste en la implementación del algoritmo PageRank propuesto po
 Ejecutar con:
 ```bash
     make ARGS="-src [Archivo] -dst [Destino]"
+    make ARGS="-src prueba.txt -dst /home"
 ```
 
 ## Miembros del equipo
