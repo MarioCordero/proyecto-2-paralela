@@ -1,32 +1,37 @@
-#ifndef FILEMANAGER_H
-#define FILEMANAGER_H
+// Inclusion de encabezados
+#include "../include/vertex.hpp"
 
-// Bibliotecas e inclusion de encabezados
+// Bibliotecas
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <unordered_map>
 #include <vector>
-#include "../include/vertex.hpp"
+
+using namespace std;
+
+#ifndef FILEMANAGER_H
+#define FILEMANAGER_H
 
 class FileManager
 {
-
 private:
     // Mapa para almacenar los nodos y sus asociaciones
-    std::unordered_map<int, vertex> nodeAssociations;
+    unordered_map<int, vertex> nodeAssociations;
 
 public:
     // Constructor
     FileManager() {}
+
     // Procesador del archivo
-    bool processFile(std::ifstream &file, const std::string &path);
+    bool processFile(ifstream &file, const string &path);
     // Getter para toda la estructura de los nodos
-    const std::unordered_map<int, vertex> &getNodeAssociations();
+    const unordered_map<int, vertex> &getNodeAssociations();
     // Para imprimir el mapa
     void printNodeAssociations();
-    bool writeFile(const std::string& path, const std::string& content);
-};
+    // Escribir el archivo
+    bool writeFile(const string &path, const string &content);
+}; // Fin clase FileManager
 
 #endif // Fin FILEMANAGER_H

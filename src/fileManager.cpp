@@ -1,21 +1,21 @@
-// Bibliotecas e inclusion de encabezados
+// Inclusion de encabezados
+#include "../include/vertex.hpp"
+#include "../include/fileManager.hpp"
+
+// Bibliotecas
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <unordered_map>
 #include <vector>
-#include "../include/vertex.hpp"
-#include "../include/fileManager.hpp"
 
 using namespace std;
 
 bool FileManager::processFile(ifstream &file, const string &path)
 {
-
     // Almacena cada línea del archivo
     string line;
-
     // Vertice y sus asociaciones
     int node, association;
     // Los : que delimita la entrada por linea
@@ -24,7 +24,6 @@ bool FileManager::processFile(ifstream &file, const string &path)
     // Leer el archivo línea por línea
     while (getline(file, line))
     {
-
         cout << line << endl;
         stringstream ss(line);
 
@@ -42,27 +41,27 @@ bool FileManager::processFile(ifstream &file, const string &path)
             {
                 // Nodo no existe en el mapa, entonces se agrega al mapa
                 nodeAssociations[node] = vertex(node);
-            }
+            } // Fin if
 
             if (nodeAssociations.find(association) == nodeAssociations.end())
             {
                 // Asociacion no existe en el mapa, entonces se agrega al mapa
                 nodeAssociations[association] = vertex(association);
-            }
+            } // Fin if
 
             // Agregar la asociación al nodo en el mapa
             nodeAssociations[node].addEdge(nodeAssociations[association]);
-        }
-    }
+        } // Fin if
+    } // Fin while
     // Se hizo todo sin errores
     return true;
-}
+} // Fin processFile
 
 // Implemetación del getter
 const unordered_map<int, vertex> &FileManager::getNodeAssociations()
 {
     return nodeAssociations;
-}
+} // Fin getNodeAssociations
 
 void FileManager::printNodeAssociations()
 {
@@ -70,39 +69,41 @@ void FileManager::printNodeAssociations()
     {
         int node = pair.first;
         const vertex &vert = pair.second;
-
         cout << "Node: " << node << ", Adjacent Nodes: ";
+
         for (const auto *adjVertex : vert.getAdjacentVertex())
         {
             cout << adjVertex->getID() << " ";
-        }
+        } // Fin for
         cout << endl;
-    }
-}
+    } // Fin for
+} // Fin printNodeAssociations
 
-bool writeFile(const string& path, const string& content) {
+bool writeFile(const string &path, const string &content)
+{
     // Crear un objeto ofstream
     ofstream file(path);
 
     // Verificar si el archivo se abrió correctamente
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         cerr << "No se pudo abrir el archivo para escribir: " << path << endl;
         return false;
-    }
+    } // Fin if
 
     // Escribir contenido en el archivo
     file << content;
 
     // Verificar si hubo algún error al escribir
-    if (file.fail()) {
+    if (file.fail())
+    {
         cerr << "Error al escribir en el archivo: " << path << endl;
         file.close();
         return false;
-    }
+    } // Fin if
 
     // Cerrar el archivo
     file.close();
-
     // Todo se ejecutó con éxito
     return true;
-}
+} // Fin writeFile
