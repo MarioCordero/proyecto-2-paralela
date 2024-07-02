@@ -1,14 +1,6 @@
 // Inclusion de encabezados
 #include "../include/vertex.hpp"
 
-// Bibliotecas
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <unordered_map>
-#include <vector>
-
 using namespace std;
 
 #ifndef FILEMANAGER_H
@@ -33,7 +25,7 @@ public:
     // Para imprimir el mapa
     void printNodeAssociations();
     // Escribir un archivo
-    void writeFile(const string &path);
+    void writeFile();
     // Establecer el nombre del archivo
     void setOutputFileName(const string &fileName);
 
