@@ -19,6 +19,8 @@ class FileManager
 private:
     // Mapa para almacenar los nodos y sus asociaciones
     unordered_map<int, vertex> nodeAssociations;
+    // Nombre del archivo para escribir
+    string outputFileName;
 
 public:
     // Constructor
@@ -34,7 +36,7 @@ public:
     void writeFile();
     // Establecer el nombre del archivo
     void setOutputFileName(const string &fileName);
-    
+
 }; // Fin clase FileManager
 
 #endif // Fin FILEMANAGER_H
