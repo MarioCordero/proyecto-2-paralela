@@ -68,8 +68,20 @@ int Controller::start(int argc, char *argv[])
     PageRank pageRank(fileProcessor);
     // Calcular el PageRank en base al archivo ya verificado
     pageRank.calculatePR();
-    // Imprimir los PageRanks después de calcularlos
+    // Imprimir los PageRanks en consola después de calcularlos
     pageRank.printPageRanks();
+
+    fileProcessor.setOutputFileName("output.txt");
+
+    try
+    {
+        fileProcessor.writeFile();
+        cout << "\n\nArchivo escrito con exito!\n" << endl;
+    }
+    catch (const std::runtime_error &e)
+    {
+        cerr << "Error: " << e.what() << endl;
+    }
 
 
     // Fin programa
