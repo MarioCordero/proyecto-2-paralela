@@ -64,13 +64,14 @@ int Controller::start(int argc, char *argv[])
         throw runtime_error("\n\nFallo al procesar el archivo.\n\n");
     } // Fin if
 
-    // -TODO[] : HACER LO QUE QUEDA
-    // Usar el getter el mapa y vamonos
-
+    // Crear instancia de PageRank
     PageRank pageRank(fileProcessor);
+    // Calcular el PageRank en base al archivo ya verificado
     pageRank.calculatePR();
     // Imprimir los PageRanks después de calcularlos
     pageRank.printPageRanks();
+
+
     // Fin programa
     return 0;
 } // Fin start
