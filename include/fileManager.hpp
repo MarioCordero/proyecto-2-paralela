@@ -1,5 +1,7 @@
 // Inclusion de encabezados
 #include "../include/vertex.hpp"
+#include <unordered_map>
+#include <string>
 
 using namespace std;
 
