@@ -105,3 +105,9 @@ void PageRank::printPageRanks()
         cout << "Vertex ID: " << nodeID << ", PageRank: " << currentNode.getCurrentPR() << endl;
     } // Fin for
 } // Fin printPageRanks
+
+// Método para obtener los valores de PageRank
+unordered_map<int, vertex> &PageRank::getPageRanks()
+{
+    return fileManager.getNodeAssociations();
+}

@@ -23,6 +23,7 @@ public:
 
     void calculatePR();
     void printPageRanks();
+    unordered_map<int, vertex> &getPageRanks();
 }; // Fin clase PageRank
 
 #endif // Fin PAGERANK_H
