@@ -78,29 +78,48 @@ void FileManager::printNodeAssociations()
     } // Fin for
 } // Fin printNodeAssociations
 
-bool writeFile(const string &path)
+void writeFile(const string &path)
 {
+    // Verificar si el nombre del archivo está establecido
+    if (outputFileName.empty())
+    {
+        throw std::runtime_error("El nombre del archivo de salida no está establecido.");
+    } // Fin if
+
     // Crear un objeto ofstream
-    ofstream file(path);
+    ofstream file(outputFileName);
 
     // Verificar si el archivo se abrió correctamente
     if (!file.is_open())
     {
-        cerr << "No se pudo abrir el archivo para escribir: " << path << endl;
-        return false;
+        throw std::runtime_error("No se pudo abrir el archivo para escribir: " + outputFileName);
     } // Fin if
 
-    //file << pageRanke.calculatePR();
+    // Iterar sobre el mapa y escribir los datos
+    for (const auto &pair : nodeAssociations)
+    {
+        int node = pair.first;
+        const vertex &vert = pair.second;
+        file << "Node: " << node << ", Adjacent Nodes: ";
+        for (const auto *adjVertex : vert.getAdjacentVertex())
+        {
+            file << adjVertex->getID() << " ";
+        } // Fin for
+        file << endl;
+    } // Fin for
 
     // Verificar si hubo algún error al escribir
     if (file.fail())
     {
-        cerr << "Error al escribir en el archivo: " << path << endl;
         file.close();
-        return false;
+        throw std::runtime_error("Error al escribir en el archivo: " + outputFileName);
     } // Fin if
 
     // Cerrar el archivo
     file.close();
-    return true;
 } // Fin writeFile
+
+void setOutputFileName(const string &fileName)
+{
+    outputFileName = fileName;
+} // Fin setOutputFileNa
