@@ -16,7 +16,10 @@ using namespace std;
 class PageRank
 {
 private:
-    FileManager &fileManager;
+    // Mapa para almacenar los nodos y sus asociaciones
+    unordered_map<int, vertex> nodeAssociations;
+    // Nombre del archivo para escribir
+    string outputFileName;
 
 public:
     PageRank(FileManager &fm);
