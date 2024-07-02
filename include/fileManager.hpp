@@ -31,7 +31,10 @@ public:
     // Para imprimir el mapa
     void printNodeAssociations();
     // Escribir un archivo
-    bool writeFile(const string &path);
+    void writeFile();
+    // Establecer el nombre del archivo
+    void setOutputFileName(const string &fileName);
+    
 }; // Fin clase FileManager
 
 #endif // Fin FILEMANAGER_H
