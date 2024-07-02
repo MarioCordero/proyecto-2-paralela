@@ -78,7 +78,7 @@ void FileManager::printNodeAssociations()
     } // Fin for
 } // Fin printNodeAssociations
 
-void FileManager::writeFile(vertex>& pageRanks)
+void FileManager::writeFile(const unordered_map<int, vertex>& pageRanks)
 {
     // Verificar si el nombre del archivo está establecido
     if (outputFileName.empty())
