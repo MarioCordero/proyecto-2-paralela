@@ -91,7 +91,7 @@ void PageRank::calculatePR()
             nodes[nodeID].setPreviousPR(nodes[nodeID].getCurrentPR());
         } // Fin for
     } // Fin while
-    cout << "PageRank converged after " << iteration << " iterations." << endl;
+    cerr << "PageRank converged after " << iteration << " iterations." << endl;
 } // Fin calculatePR
 
 // Método auxiliar para imprimir el valor del PageRank de cada nodo
@@ -102,7 +102,7 @@ void PageRank::printPageRanks()
     {
         int nodeID = pair.first;
         const auto &currentNode = pair.second;
-        cout << "Vertex ID: " << nodeID << ", PageRank: " << currentNode.getCurrentPR() << endl;
+        cerr << "Vertex ID: " << nodeID << ", PageRank: " << currentNode.getCurrentPR() << endl;
     } // Fin for
 } // Fin printPageRanks
 

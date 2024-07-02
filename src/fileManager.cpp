@@ -9,6 +9,7 @@
 #include <sstream>
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ bool FileManager::processFile(ifstream &file, const string &path)
     // Leer el archivo línea por línea
     while (getline(file, line))
     {
-        cout << line << endl;
+        cerr << line << endl;
         stringstream ss(line);
 
         // Leyendo la línea
@@ -69,12 +70,12 @@ void FileManager::printNodeAssociations()
     {
         int node = pair.first;
         const vertex &vert = pair.second;
-        cout << "Node: " << node << ", Adjacent Nodes: ";
+        cerr << "Node: " << node << ", Adjacent Nodes: ";
         for (const auto *adjVertex : vert.getAdjacentVertex())
         {
-            cout << adjVertex->getID() << " ";
+            cerr << adjVertex->getID() << " ";
         } // Fin for
-        cout << endl;
+        cerr << endl;
     } // Fin for
 } // Fin printNodeAssociations
 
@@ -84,7 +85,7 @@ void FileManager::writeFile(const unordered_map<int, vertex>& pageRanks)
     if (outputFileName.empty())
     {
         throw std::runtime_error("El nombre del archivo de salida no está establecido.");
-    } // Fin if
+    }
 
     // Crear un objeto ofstream
     ofstream file(outputFileName);
@@ -93,39 +94,33 @@ void FileManager::writeFile(const unordered_map<int, vertex>& pageRanks)
     if (!file.is_open())
     {
         throw std::runtime_error("No se pudo abrir el archivo para escribir: " + outputFileName);
-    } // Fin if
+    }
 
-    // Iterar sobre el mapa y escribir los datos
-    for (const auto &pair : nodeAssociations)
+    // Ordenar los datos de pageRanks alfabéticamente por el nodo (key)
+    vector<pair<int, vertex>> sortedPageRanks(pageRanks.begin(), pageRanks.end());
+    sort(sortedPageRanks.begin(), sortedPageRanks.end(), [](const pair<int, vertex>& a, const pair<int, vertex>& b) {
+        return a.first < b.first; // Ordenar por el valor de la key (int)
+    });
+
+    // Escribir los valores de PageRank ordenados alfabéticamente
+    for (const auto &pair : sortedPageRanks)
     {
         int node = pair.first;
         const vertex &vert = pair.second;
-        file << "Node: " << node << ", Adjacent Nodes: ";
-        for (const auto *adjVertex : vert.getAdjacentVertex())
-        {
-            file << adjVertex->getID() << " ";
-        } // Fin for
-        file << endl;
-    } // Fin for
-
-    // Escribir los valores de PageRank
-    file << "\nPageRanks:\n";
-    for (const auto &pair : pageRanks)
-    {
-        int node = pair.first;
-        const vertex &vert = pair.second;
-        file << "Node: " << node << ", PageRank: " << vert.getCurrentPR() << endl;
-    } // Fin for
+        file << node << " : " << vert.getCurrentPR() << endl;
+    }
 
     // Verificar si hubo algún error al escribir
     if (file.fail())
     {
         file.close();
         throw std::runtime_error("Error al escribir en el archivo: " + outputFileName);
-    } // Fin if
+    }
 
     // Cerrar el archivo
-} // Fin writeFile
+    file.close();
+}
+
 
 void FileManager::setOutputFileName(const string &fileName)
 {
