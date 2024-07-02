@@ -75,7 +75,7 @@ int Controller::start(int argc, char *argv[])
 
     try
     {
-        fileProcessor.writeFile();
+        fileProcessor.writeFile(fileDestination);
         cout << "\n\nArchivo escrito con exito!\n" << endl;
     }
     catch (const std::runtime_error &e)

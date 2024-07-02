@@ -33,7 +33,7 @@ public:
     // Para imprimir el mapa
     void printNodeAssociations();
     // Escribir un archivo
-    void writeFile();
+    void writeFile(const string &path);
     // Establecer el nombre del archivo
     void setOutputFileName(const string &fileName);
 

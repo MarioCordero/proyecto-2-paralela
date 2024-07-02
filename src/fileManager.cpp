@@ -78,7 +78,7 @@ void FileManager::printNodeAssociations()
     } // Fin for
 } // Fin printNodeAssociations
 
-void writeFile(const string &path)
+void FileManager::writeFile(const string &path)
 {
     // Verificar si el nombre del archivo está establecido
     if (outputFileName.empty())
@@ -119,7 +119,7 @@ void writeFile(const string &path)
     file.close();
 } // Fin writeFile
 
-void setOutputFileName(const string &fileName)
+void FileManager::setOutputFileName(const string &fileName)
 {
     outputFileName = fileName;
 } // Fin setOutputFileNa
