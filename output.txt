@@ -2,3 +2,9 @@ Node: 4, Adjacent Nodes: 3
 Node: 3, Adjacent Nodes: 1 2 4 
 Node: 2, Adjacent Nodes: 4 
 Node: 1, Adjacent Nodes: 2 3 
+
+PageRanks:
+Node: 4, PageRank: 0.175757
+Node: 3, PageRank: 0.487962
+Node: 2, PageRank: 0.186892
+Node: 1, PageRank: 0.334617
