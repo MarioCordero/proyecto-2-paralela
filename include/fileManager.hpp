@@ -25,7 +25,7 @@ public:
     // Para imprimir el mapa
     void printNodeAssociations();
     // Escribir un archivo
-    void writeFile();
+    void writeFile(const unordered_map<int, vertex>& pageRanks);
     // Establecer el nombre del archivo
     void setOutputFileName(const string &fileName);
 
