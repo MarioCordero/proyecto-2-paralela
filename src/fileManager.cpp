@@ -78,7 +78,7 @@ void FileManager::printNodeAssociations()
     } // Fin for
 } // Fin printNodeAssociations
 
-void FileManager::writeFile(const string &path)
+void FileManager::writeFile(vertex>& pageRanks)
 {
     // Verificar si el nombre del archivo está establecido
     if (outputFileName.empty())
@@ -108,6 +108,15 @@ void FileManager::writeFile(const string &path)
         file << endl;
     } // Fin for
 
+    // Escribir los valores de PageRank
+    file << "\nPageRanks:\n";
+    for (const auto &pair : pageRanks)
+    {
+        int node = pair.first;
+        const vertex &vert = pair.second;
+        file << "Node: " << node << ", PageRank: " << vert.getCurrentPR() << endl;
+    } // Fin for
+
     // Verificar si hubo algún error al escribir
     if (file.fail())
     {
@@ -116,7 +125,6 @@ void FileManager::writeFile(const string &path)
     } // Fin if
 
     // Cerrar el archivo
-    file.close();
 } // Fin writeFile
 
 void FileManager::setOutputFileName(const string &fileName)
